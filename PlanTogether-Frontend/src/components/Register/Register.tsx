@@ -1,6 +1,6 @@
 const Register: React.FC = () => {
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div style={{ textAlign: "center" }}>
       <h1>Register Page</h1>
       <form>
         <div>

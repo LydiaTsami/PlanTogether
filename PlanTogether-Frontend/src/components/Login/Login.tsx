@@ -1,6 +1,6 @@
 const Login: React.FC = () => {
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div style={{ textAlign: "center" }}>
       <h1>Login Page</h1>
       <form>
         <div>

@@ -19,7 +19,7 @@ export const useHome = () => {
       },
       {
         key: "logout",
-        label: "Register",
+        label: "Logout",
       },
     ];
 

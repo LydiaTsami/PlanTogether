@@ -15,7 +15,11 @@ export const useRegister = () => {
   };
 
   const registerRequest = (data: RegisterRequest) => {
-    return axios.post<RegisterResponse>(`/register`, data).then((r) => r.data);
+    const currentURL = window.location.href;
+    const ip = new URL(currentURL).hostname;
+    return axios
+      .post<RegisterResponse>(`http://${ip}:8080/api/register`, data)
+      .then((r) => r.data);
   };
 
   const { mutate } = useMutation("registerQuery", registerRequest);

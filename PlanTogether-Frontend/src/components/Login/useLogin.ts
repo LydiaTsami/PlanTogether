@@ -15,7 +15,11 @@ export const useLogin = () => {
   };
 
   const loginRequest = (data: LoginRequest) => {
-    return axios.post<LoginResponse>(`/login`, data).then((r) => r.data);
+    const currentURL = window.location.href;
+    const ip = new URL(currentURL).hostname;
+    return axios
+      .post<LoginResponse>(`http://${ip}:8080/api/login`, data)
+      .then((r) => r.data);
   };
 
   const { mutate } = useMutation("loginQuery", loginRequest);

@@ -15,25 +15,25 @@ services:
     restart: no
     networks:
       - app-network
-#  backend:
-#    container_name: backend
-#    build: ./PlanTogether-Backend
-#    depends_on:
-#      - database
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/plan_together
-#      - END_TO_END_TEST_IP=http://frontend:3000
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - app-network
-#  frontend:
-#    container_name: frontend
-#    build: ./PlanTogether-Frontend
-#    ports:
-#      - "5173:5173"
-#    networks:
-#      - app-network
+  backend:
+    container_name: backend
+    build: ./PlanTogether-Backend
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/plan_together
+      - END_TO_END_TEST_IP=http://frontend:3000
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+  frontend:
+    container_name: frontend
+    build: ./PlanTogether-Frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - app-network
 
 volumes:
   mysql-data:

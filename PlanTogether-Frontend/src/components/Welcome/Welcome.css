@@ -1,0 +1,13 @@
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font: 700 38px "Roboto", sans-serif;
+}
+
+.subtitle {
+    text-align: center;
+}

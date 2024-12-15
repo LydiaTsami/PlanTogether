@@ -1,28 +1,66 @@
+import { Button, Form, Input, message, Space } from "antd";
+import { LoginRequest } from "../Login/types";
+import React from "react";
+import { useRegister } from "./useRegister.ts";
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
+
 const Register: React.FC = () => {
+  const { form, onFinish } = useRegister();
+
+  const onSuccess = () => {
+    message.success(<span>You have successfully registered!</span>);
+  };
+
+  const onError = (error: string) => {
+    message.error(<span>Login Failed: {error}</span>);
+  };
+
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Register Page</h1>
-      <form>
+    <div className="page-container">
+      <div>
+        <div className={"title"}>Register here my love</div>
         <div>
-          <label>
-            Email:
-            <input type="email" name="email" />
-          </label>
+          <Form
+            {...layout}
+            form={form}
+            name="control-hooks"
+            onFinish={(values: LoginRequest) =>
+              onFinish(values, onSuccess, onError)
+            }
+            style={{ maxWidth: 600 }}
+          >
+            <Form.Item
+              name="username"
+              label="Username"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item {...tailLayout}>
+              <Space>
+                <Button type="primary" htmlType="submit">
+                  Login
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
         </div>
-        <div>
-          <label>
-            Username:
-            <input type="text" name="username" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password:
-            <input type="password" name="password" />
-          </label>
-        </div>
-        <button type="submit">Register</button>
-      </form>
+      </div>
     </div>
   );
 };

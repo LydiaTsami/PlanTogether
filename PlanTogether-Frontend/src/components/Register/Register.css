@@ -1,0 +1,12 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.title {
+    font: 700 38px "Roboto", sans-serif;
+    margin-bottom: 50px;
+}
+

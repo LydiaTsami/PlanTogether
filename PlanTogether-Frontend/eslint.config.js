@@ -29,14 +29,6 @@ export default [
       ],
       "prettier/prettier": "error",
       "arrow-body-style": "off",
-      "capitalized-comments": [
-        "error",
-        "always",
-        {
-          ignorePattern: "pragma|ignored",
-          ignoreInlineComments: true,
-        },
-      ],
       curly: "error",
       "dot-notation": "error",
       "logical-assignment-operators": ["error", "always"],
@@ -51,7 +43,6 @@ export default [
       "no-useless-return": "error",
       "no-var": "error",
       "object-shorthand": "error",
-      "one-var": "error",
       "operator-assignment": ["error", "always"],
       "prefer-arrow-callback": "off",
       "prefer-const": "error",

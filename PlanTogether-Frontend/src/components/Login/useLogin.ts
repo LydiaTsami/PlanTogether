@@ -1,8 +1,7 @@
 import { Form } from "antd";
 import { useMutation } from "react-query";
 import { LoginRequest, LoginResponse } from "./types";
-import axiosInstance from "../Axios/AxiosInstance.ts";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 export const useLogin = () => {
   const [form] = Form.useForm();
@@ -16,9 +15,7 @@ export const useLogin = () => {
   };
 
   const loginRequest = (data: LoginRequest) => {
-    return axiosInstance
-      .post<LoginResponse>(`/login`, data)
-      .then((r) => r.data);
+    return axios.post<LoginResponse>(`/login`, data).then((r) => r.data);
   };
 
   const { mutate } = useMutation("loginQuery", loginRequest);

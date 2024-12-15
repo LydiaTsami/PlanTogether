@@ -1,8 +1,7 @@
 import { Form } from "antd";
 import { useMutation } from "react-query";
 import { RegisterRequest, RegisterResponse } from "./types";
-import axiosInstance from "../Axios/AxiosInstance.ts";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 export const useRegister = () => {
   const [form] = Form.useForm();
@@ -16,9 +15,7 @@ export const useRegister = () => {
   };
 
   const registerRequest = (data: RegisterRequest) => {
-    return axiosInstance
-      .post<RegisterResponse>(`/register`, data)
-      .then((r) => r.data);
+    return axios.post<RegisterResponse>(`/register`, data).then((r) => r.data);
   };
 
   const { mutate } = useMutation("registerQuery", registerRequest);

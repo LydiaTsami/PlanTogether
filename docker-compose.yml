@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: plan_together
     ports:
-      - "3306:3306"
+      - "3309:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     restart: no

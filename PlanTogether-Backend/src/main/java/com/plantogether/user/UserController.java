@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class UserController {
         return "Welcome this endpoint is not secure";
     }
 
-    @PostMapping("/addNewUser")
+    @PostMapping("/register")
     public String addNewUser(@RequestBody User user) {
         return service.addUser(user);
     }
@@ -44,7 +44,7 @@ public class UserController {
         return "Welcome to Admin Profile";
     }
 
-    @PostMapping("/generateToken")
+    @PostMapping("/login")
     public String authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())

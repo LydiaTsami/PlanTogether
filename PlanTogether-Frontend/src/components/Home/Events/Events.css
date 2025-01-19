@@ -1,0 +1,81 @@
+.event-container-container {
+    padding: 25px;
+    height: 100%;
+    width: 100%;
+}
+
+.event-container {
+    padding: 15px;
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+
+    &.disappear {
+        animation: fadeOut 0.5s forwards;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        pointer-events: none;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+.event {
+    border: 1px solid black;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    }
+
+}
+
+.event-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.event-title-divider {
+    margin: 0;
+}
+
+.users {
+    height: 100px;
+    padding: 5px;
+    overflow: auto;
+}
+
+.user {
+    border: 1px solid black;
+    padding: 3px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.calendar {
+    position: fixed;
+    border: 1px solid black;
+    transition: all 0.3s ease;
+    top: 0;
+    left: 0;
+
+    &.grow {
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+}

@@ -1,39 +1,71 @@
-import { Col, Layout, Menu, Row } from "antd";
+import { Button, Col, Dropdown, Layout, Menu, Row } from "antd";
 import React from "react";
 import "./Home.css";
 import { Link, Route, Routes } from "react-router-dom";
-import Login from "../Login/Login.tsx";
-import Register from "../Register/Register.tsx";
-import Welcome from "../Welcome/Welcome.tsx";
+import Login from "./Login/Login.tsx";
+import Register from "./Register/Register.tsx";
+import Welcome from "./Welcome/Welcome.tsx";
 import { useHome } from "./useHome.ts";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import Events from "./Events/Events.tsx";
 
 const { Header, Sider, Content, Footer } = Layout;
 
 const Home: React.FC = () => {
-  const { headerItems, siderItems } = useHome();
+  const {
+    headerItems,
+    siderItems,
+    menuProps,
+    siderCollapsed,
+    setSiderCollapsed,
+  } = useHome();
 
   return (
     <Layout className="general-layout">
       <Header className="header">
-        <Row>
+        <Row justify="space-between">
           <Col>
-            <Link to="/">
-              <div className="logo">PlanTogether</div>
-            </Link>
+            <Row justify="space-between">
+              <Col>
+                <Link to="/">
+                  <div className="logo">PlanTogether</div>
+                </Link>
+              </Col>
+              <Col>
+                <Menu
+                  theme="dark"
+                  mode="horizontal"
+                  defaultSelectedKeys={["2"]}
+                  items={headerItems}
+                  className="header-menu"
+                />
+              </Col>
+            </Row>
           </Col>
           <Col>
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={["2"]}
-              items={headerItems}
-              style={{ flex: 1, minWidth: 0 }}
-            />
+            <Dropdown menu={menuProps}>
+              <Button
+                className={"avatar"}
+                size={"large"}
+                shape="circle"
+                icon={<UserOutlined />}
+              ></Button>
+            </Dropdown>
           </Col>
         </Row>
       </Header>
       <Layout className="layout">
-        <Sider className="sider" collapsible>
+        <Sider
+          className="sider"
+          collapsible
+          collapsedWidth="0"
+          trigger={null}
+          collapsed={siderCollapsed}
+        >
           <Menu
             theme="dark"
             mode="inline"
@@ -44,11 +76,18 @@ const Home: React.FC = () => {
           />
         </Sider>
         <Content className="content">
+          <div
+            className={"sider-trigger"}
+            onClick={() => setSiderCollapsed(!siderCollapsed)}
+          >
+            {siderCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </div>
           <div className="padded-content">
             <Routes>
               <Route path="/" element={<Welcome />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/events" element={<Events />} />
             </Routes>
           </div>
         </Content>

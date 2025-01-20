@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PlanTogether</string>
+    <string name="title_activity_main">PlanTogether</string>
+    <string name="package_name">com.plan.together</string>
+    <string name="custom_url_scheme">com.plan.together</string>
+</resources>

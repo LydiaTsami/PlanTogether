@@ -27,6 +27,17 @@
     }
 }
 
+.eventPanel {
+
+}
+
+.clickedEventPanel {
+    border: 1px solid black;
+    background-color: white;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
 .event {
     border: 1px solid black;
     cursor: pointer;
@@ -36,7 +47,6 @@
     &:hover {
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
     }
-
 }
 
 .event-title {

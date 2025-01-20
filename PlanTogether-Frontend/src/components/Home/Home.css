@@ -75,4 +75,5 @@
     background-color: #001529;
     color: white;
     cursor: pointer;
+    z-index: 100;
 }

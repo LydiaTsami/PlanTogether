@@ -4,19 +4,49 @@ import { useEvents } from "./useEvents.ts";
 import { Col, Divider, Row } from "antd";
 
 const Events: React.FC = () => {
-  const { events, openEventId, onEventClick } = useEvents();
+  const {
+    events,
+    onEventClick,
+    onEventMouseOver,
+    eventContainerContainerRef,
+    hoveredEventId,
+    hoveredEventRect,
+    clickedEventId,
+    clickedEventRect,
+  } = useEvents();
 
   return (
     <>
-      <div className={"event-container-container"}>
-        <div className={`event-container ${openEventId ? "disappear" : ""}`}>
+      <div
+        style={{
+          height: clickedEventRect
+            ? clickedEventRect.height
+            : hoveredEventRect?.height,
+          width: clickedEventRect
+            ? clickedEventRect.width
+            : hoveredEventRect?.width,
+          top: clickedEventRect ? clickedEventRect.top : hoveredEventRect?.top,
+          left: clickedEventRect
+            ? clickedEventRect.left
+            : hoveredEventRect?.left,
+          position: "absolute",
+        }}
+        className={`eventPanel ${clickedEventId ? "clickedEventPanel" : ""}`}
+      ></div>
+
+      <div
+        className={"event-container-container"}
+        ref={eventContainerContainerRef}
+      >
+        <div className={`event-container ${clickedEventId ? "disappear" : ""}`}>
           <Row gutter={[15, 15]}>
             {events.map((event) => (
               <Col span={3} key={event.id}>
                 <div
                   className={"event"}
-                  onClick={(clickEvent) =>
-                    onEventClick(event.id, clickEvent.currentTarget)
+                  onClick={() => onEventClick(event.id)}
+                  onMouseEnter={(clickEvent) =>
+                    onEventMouseOver(event.id, clickEvent.currentTarget)
                   }
                 >
                   <div className={"event-title"}>{event.name}</div>

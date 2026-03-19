@@ -4,16 +4,18 @@ import { Link, useLocation } from "react-router-dom";
 
 export const useHome = () =>
 {
-  // const isAuthenticated = sessionStorage.getItem("token") !== null;
+  const isAuthenticated = sessionStorage.getItem("token") !== null;
   const [siderCollapsed, setSiderCollapsed] = useState(false);
   const location = useLocation();
 
-  const headerItems: MenuProps["items"] = [
-    {
-      key: "administration",
-      label: React.createElement(Link, { to: "/administration" }, "Administration"),
-    },
-  ];
+  const headerItems: MenuProps["items"] = isAuthenticated
+    ? [
+      {
+        key: "administration",
+        label: React.createElement(Link, { to: "/administration" }, "Administration"),
+      },
+    ]
+    : [];
 
   const administrationSiderItems: MenuProps["items"] = [
     {
@@ -26,32 +28,49 @@ export const useHome = () =>
     },
   ];
 
-  const siderItems: MenuProps["items"] = location.pathname.startsWith("/administration")
+  const siderItems: MenuProps["items"] = isAuthenticated && location.pathname.startsWith("/administration")
     ? administrationSiderItems
     : [];
 
-  const items: MenuProps["items"] = [
+  const siderSelectedKeys = location.pathname.split("/").pop() ? [location.pathname.split("/").pop()!] : [];
+
+  const items: MenuProps["items"] = isAuthenticated
+    ? [
+      {
+        label: "Logout",
+        key: "logout",
+      },
+    ]
+    : [
+      {
+        label: React.createElement(Link, { to: "/login" }, "Login"),
+        key: "login",
+      },
+      {
+        label: React.createElement(Link, { to: "/register" }, "Register"),
+        key: "register",
+      },
+    ];
+
+  const onMenuClick: MenuProps["onClick"] = (e) =>
+  {
+    if (e.key === "logout")
     {
-      label: React.createElement(Link, { to: "/login" }, "Login"),
-      key: "login",
-    },
-    {
-      label: React.createElement(Link, { to: "/register" }, "Register"),
-      key: "register",
-    },
-    {
-      label: "logout",
-      key: "logout",
-    },
-  ];
+      sessionStorage.removeItem("token");
+      window.location.replace("/");
+    }
+  };
 
   const menuProps = {
     items,
+    onClick: onMenuClick,
   };
 
   return {
+    isAuthenticated,
     headerItems,
     siderItems,
+    siderSelectedKeys,
     menuProps,
     siderCollapsed,
     setSiderCollapsed,

@@ -28,12 +28,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String addNewUser(@RequestBody User user) {
-        return service.addUser(user);
+    public LoginResponse addNewUser(@RequestBody User user) {
+        service.addUser(user);
+        String token = jwtService.generateToken(user.getUsername());
+        return new LoginResponse(token);
     }
 
     @GetMapping("/user/userProfile")
-//    @PreAuthorize("hasAuthority('ROLE_USER')")
+    // @PreAuthorize("hasAuthority('ROLE_USER')")
     public String userProfile() {
         return "Welcome to User Profile";
     }
@@ -45,12 +47,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
+    public LoginResponse authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password())
-        );
+                new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(loginRequest.username());
+            String token = jwtService.generateToken(loginRequest.username());
+            return new LoginResponse(token);
         } else {
             throw new UsernameNotFoundException("Invalid user request!");
         }

@@ -1,7 +1,7 @@
 import { Button, Col, Dropdown, Layout, Menu, Row } from "antd";
 import React from "react";
 import "./Home.css";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./Login/Login.tsx";
 import Register from "./Register/Register.tsx";
 import Welcome from "./Welcome/Welcome.tsx";
@@ -21,8 +21,10 @@ const { Header, Sider, Content, Footer } = Layout;
 const Home: React.FC = () =>
 {
   const {
+    isAuthenticated,
     headerItems,
     siderItems,
+    siderSelectedKeys,
     menuProps,
     siderCollapsed,
     setSiderCollapsed,
@@ -63,35 +65,39 @@ const Home: React.FC = () =>
         </Row>
       </Header>
       <Layout className="layout">
-        <Sider
-          className="sider"
-          collapsible
-          collapsedWidth="0"
-          trigger={null}
-          collapsed={siderCollapsed}
-        >
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
-            className="menu"
-            items={siderItems}
-          />
-        </Sider>
-        <Content className="content">
-          <div
-            className={"sider-trigger"}
-            onClick={() => setSiderCollapsed(!siderCollapsed)}
+        {isAuthenticated && (
+          <Sider
+            className="sider"
+            collapsible
+            collapsedWidth="0"
+            trigger={null}
+            collapsed={siderCollapsed}
           >
-            {siderCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          </div>
+            <Menu
+              theme="dark"
+              mode="inline"
+              selectedKeys={siderSelectedKeys}
+              className="menu"
+              items={siderItems}
+            />
+          </Sider>
+        )}
+        <Content className="content">
+          {isAuthenticated && (
+            <div
+              className={"sider-trigger"}
+              onClick={() => setSiderCollapsed(!siderCollapsed)}
+            >
+              {siderCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            </div>
+          )}
           <div className="padded-content">
             <Routes>
               <Route path="/" element={<Welcome />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/administration" element={<Administration />}>
+                <Route index element={<Navigate to="users" replace />} />
                 <Route path="users" element={<Users />} />
                 <Route path="test" element={<Test />} />
               </Route>

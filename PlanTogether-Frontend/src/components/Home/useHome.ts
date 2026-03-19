@@ -1,22 +1,34 @@
 import { MenuProps } from "antd";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export const useHome = () => {
+export const useHome = () =>
+{
   // const isAuthenticated = sessionStorage.getItem("token") !== null;
   const [siderCollapsed, setSiderCollapsed] = useState(false);
+  const location = useLocation();
 
   const headerItems: MenuProps["items"] = [
     {
-      key: "calendars",
-      label: React.createElement(Link, { to: "/events" }, "Events"),
+      key: "administration",
+      label: React.createElement(Link, { to: "/administration" }, "Administration"),
     },
   ];
 
-  const siderItems: { key: string; label: string }[] = [
-    { key: "allEvents", label: "All Events" },
-    { key: "myEvents", label: "My Events" },
+  const administrationSiderItems: MenuProps["items"] = [
+    {
+      key: "users",
+      label: React.createElement(Link, { to: "/administration/users" }, "Users"),
+    },
+    {
+      key: "test",
+      label: React.createElement(Link, { to: "/administration/test" }, "Test"),
+    },
   ];
+
+  const siderItems: MenuProps["items"] = location.pathname.startsWith("/administration")
+    ? administrationSiderItems
+    : [];
 
   const items: MenuProps["items"] = [
     {

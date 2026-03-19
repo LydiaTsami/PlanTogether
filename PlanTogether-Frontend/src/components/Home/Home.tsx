@@ -5,17 +5,21 @@ import { Link, Route, Routes } from "react-router-dom";
 import Login from "./Login/Login.tsx";
 import Register from "./Register/Register.tsx";
 import Welcome from "./Welcome/Welcome.tsx";
+import Administration from "./Administration/Administration.tsx";
+import Users from "./Administration/Users/Users.tsx";
+import Test from "./Administration/Test/Test.tsx";
 import { useHome } from "./useHome.ts";
-import {
+import
+{
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import Events from "./Events/Events.tsx";
 
 const { Header, Sider, Content, Footer } = Layout;
 
-const Home: React.FC = () => {
+const Home: React.FC = () =>
+{
   const {
     headerItems,
     siderItems,
@@ -28,14 +32,14 @@ const Home: React.FC = () => {
     <Layout className="general-layout">
       <Header className="header">
         <Row justify="space-between">
-          <Col>
-            <Row justify="space-between">
+          <Col flex="auto">
+            <Row>
               <Col>
                 <Link to="/">
                   <div className="logo">PlanTogether</div>
                 </Link>
               </Col>
-              <Col>
+              <Col flex="auto">
                 <Menu
                   theme="dark"
                   mode="horizontal"
@@ -87,13 +91,16 @@ const Home: React.FC = () => {
               <Route path="/" element={<Welcome />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/events" element={<Events />} />
+              <Route path="/administration" element={<Administration />}>
+                <Route path="users" element={<Users />} />
+                <Route path="test" element={<Test />} />
+              </Route>
             </Routes>
           </div>
         </Content>
       </Layout>
       <Footer className="footer">
-        Created by the love of your live {"<3"}
+        Created by the love of your life {"<3"}
       </Footer>
     </Layout>
   );
